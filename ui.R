@@ -1,9 +1,4 @@
 ### UI ####
-library(devtools)
-library(shiny)
-library(shinymaterial)
-library(leaflet)
-
 
 ui <- material_page(
   title = "Endangered Species Act Threatened Corals",
@@ -21,17 +16,16 @@ ui <- material_page(
         input_id = "species_dropdown",
         label = "Species",
         choices = c(
-          "Elkhorn Coral" = "elk",
-          "Staghorn Coral" = "stag",
-          "Lobed Star Coral" = "lobe",
-          "Boulder Star Coral" = "bould",
-          "Mountainous Star Coral" = "mount",
-          "Pillar Coral" = "pill",
-          "Rough Cactus Coral" = "rough"
+          "Elkhorn Coral" = "ACRPAL",
+          "Staghorn Coral" = "ACRCER",
+          "Lobed Star Coral" = "ORBANN",
+          "Boulder Star Coral" = "ORBFRA",
+          "Mountainous Star Coral" = "ORBFAV",
+          "Pillar Coral" = "DENCYL",
+          "Rough Cactus Coral" = "MYCFER"
         ),
-        selected = c("elk"),
-        multiple = TRUE,
-        color = "#ef5350"
+        selected = c("ACRPAL"),
+        multiple = TRUE
        )
     ),
     material_column(
@@ -39,9 +33,9 @@ ui <- material_page(
       material_slider(
           input_id = "year_min",
           label = "From Year",
-          min_value = 5,
-          max_value = 15,
-          initial_value = 10,
+          min_value = 1996,
+          max_value = 2011,
+          initial_value = 1996,
           color = "#ef5350"
         )
     ),
@@ -50,9 +44,9 @@ ui <- material_page(
     material_slider(
       input_id = "year_max",
       label = "To Year",
-      min_value = 5,
-      max_value = 15,
-      initial_value = 10,
+      min_value = 2012,
+      max_value = 2016,
+      initial_value = 2016,
       color = "#ef5350"
     )
   )
@@ -61,9 +55,10 @@ ui <- material_page(
     material_column(
       width = 9,
       material_card(
-        title = "Power vs Efficiency",
-        depth = 4,
-        leafletOutput("mymap")
+        title = "",
+        leafletOutput("map", height = 700)#,
+        #DTOutput('table')
+        #textOutput('text')
       )
     ),
     material_column(
@@ -77,24 +72,11 @@ ui <- material_page(
           off_label = "",
           on_label = ""
         ),
-        material_switch(
-          input_id = "pres",
-          label = "Presence only",
-          off_label = "",
-          on_label = ""
-        ),
-        material_radio_button(
-          input_id = "plot_theme",
-          label = "Theme",
-          choices = 
-            c("Default" = "default",
-              "Classic" = "classic",
-              "Light" = "light",
-              "Dark" = "dark")
+
+        DTOutput('tbl')
         )
       )
     )
 
   )
   
-)
